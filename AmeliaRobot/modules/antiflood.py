@@ -101,13 +101,13 @@ def check_flood(update, context) -> str:
 
     except BadRequest:
         msg.reply_text(
-            "I can't restrict people here, give me permissions first! Until then, I'll disable anti-flood."
+            "Saya tidak bisa membatasi orang di sini, beri saya izin dulu!"
         )
         sql.set_flood(chat.id, 0)
         return (
             "<b>{}:</b>"
             "\n#INFO"
-            "\nDon't have enough permission to restrict users so automatically disabled anti-flood".format(
+            "\nidak memiliki izin yang cukup untuk membatasi pengguna sehingga dinonaktifkan secara otomatis anti-flood".format(
                 chat.title
             )
         )
