@@ -63,19 +63,19 @@ def warn(user: User,
 
     if user.id in TIGERS:
         if warner:
-            message.reply_text("Tigers cant be warned.")
+            message.reply_text("Mana Bisa Tolol! Dia Lord Gue.")
         else:
             message.reply_text(
-                "Tiger triggered an auto warn filter!\n I can't warn tigers but they should avoid abusing this."
+                "Mana Bisa Tolol! Dia Lord Gue."
             )
         return
 
     if user.id in WOLVES:
         if warner:
-            message.reply_text("Wolf disasters are warn immune.")
+            message.reply_text("Mana Bisa Tolol! Dia Lord Gue.")
         else:
             message.reply_text(
-                "Wolf Disaster triggered an auto warn filter!\nI can't warn wolves but they should avoid abusing this."
+                "Mana Bisa Tolol! Dia Lord Gue."
             )
         return
 
@@ -91,16 +91,16 @@ def warn(user: User,
         if soft_warn:  # punch
             chat.unban_member(user.id)
             reply = (
-                f"<code>❕</code><b>Punch Event</b>\n"
-                f"<code> </code><b>•  User:</b> {mention_html(user.id, user.first_name)}\n"
-                f"<code> </code><b>•  Count:</b> {limit}")
+                f"<code>❕</code><b>PERINGATAN</b>\n"
+                f"<code> </code><b>•  Pengguna :</b> {mention_html(user.id, user.first_name)}\n"
+                f"<code> </code><b>•  Total    :</b> {limit}")
 
         else:  # ban
             chat.kick_member(user.id)
             reply = (
-                f"<code>❕</code><b>Ban Event</b>\n"
-                f"<code> </code><b>•  User:</b> {mention_html(user.id, user.first_name)}\n"
-                f"<code> </code><b>•  Count:</b> {limit}")
+                f"<code>❕</code><b>BANNED</b>\n"
+                f"<code> </code><b>•  Pengguna :</b> {mention_html(user.id, user.first_name)}\n"
+                f"<code> </code><b>•  Total    :</b> {limit}")
 
         for warn_reason in reasons:
             reply += f"\n - {html.escape(warn_reason)}"
@@ -109,30 +109,30 @@ def warn(user: User,
         keyboard = None
         log_reason = (f"<b>{html.escape(chat.title)}:</b>\n"
                       f"#WARN_BAN\n"
-                      f"<b>Admin:</b> {warner_tag}\n"
-                      f"<b>User:</b> {mention_html(user.id, user.first_name)}\n"
-                      f"<b>Reason:</b> {reason}\n"
-                      f"<b>Counts:</b> <code>{num_warns}/{limit}</code>")
+                      f"<b>Admin :</b> {warner_tag}\n"
+                      f"<b>Pengguna :</b> {mention_html(user.id, user.first_name)}\n"
+                      f"<b>Alasan :</b> {reason}\n"
+                      f"<b>Total :</b> <code>{num_warns}/{limit}</code>")
 
     else:
         keyboard = InlineKeyboardMarkup([[
             InlineKeyboardButton(
-                "🔘 Remove warn", callback_data="rm_warn({})".format(user.id))
+                "🔘 Hapus Peringatan", callback_data="rm_warn({})".format(user.id))
         ]])
 
         reply = (
-            f"<code>❕</code><b>Warn Event</b>\n"
-            f"<code> </code><b>•  User:</b> {mention_html(user.id, user.first_name)}\n"
-            f"<code> </code><b>•  Count:</b> {num_warns}/{limit}")
+            f"<code>❕</code><b>PERINGATAN</b>\n"
+            f"<code> </code><b>•  Pengguna :</b> {mention_html(user.id, user.first_name)}\n"
+            f"<code> </code><b>•  Total    :</b> {num_warns}/{limit}")
         if reason:
-            reply += f"\n<code> </code><b>•  Reason:</b> {html.escape(reason)}"
+            reply += f"\n<code> </code><b>•  Alasan :</b> {html.escape(reason)}"
 
         log_reason = (f"<b>{html.escape(chat.title)}:</b>\n"
                       f"#WARN\n"
-                      f"<b>Admin:</b> {warner_tag}\n"
-                      f"<b>User:</b> {mention_html(user.id, user.first_name)}\n"
-                      f"<b>Reason:</b> {reason}\n"
-                      f"<b>Counts:</b> <code>{num_warns}/{limit}</code>")
+                      f"<b>Admin :</b> {warner_tag}\n"
+                      f"<b>Pengguna :</b> {mention_html(user.id, user.first_name)}\n"
+                      f"<b>Alasan :</b> {reason}\n"
+                      f"<b>Total :</b> <code>{num_warns}/{limit}</code>")
 
     try:
         message.reply_text(
@@ -166,19 +166,19 @@ def button(update: Update, context: CallbackContext) -> str:
         res = sql.remove_warn(user_id, chat.id)
         if res:
             update.effective_message.edit_text(
-                "Warn removed by {}.".format(mention_html(user.id, user.first_name)),
+                "Menghapus Peringatan by {}.".format(mention_html(user.id, user.first_name)),
                 parse_mode=ParseMode.HTML,
             )
             user_member = chat.get_member(user_id)
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"#UNWARN\n"
-                f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"<b>User:</b> {mention_html(user_member.user.id, user_member.user.first_name)}"
+                f"<b>Admin :</b> {mention_html(user.id, user.first_name)}\n"
+                f"<b>Pengguna :</b> {mention_html(user_member.user.id, user_member.user.first_name)}"
             )
         else:
             update.effective_message.edit_text(
-                "User already has no warns.", parse_mode=ParseMode.HTML
+                "Pengguna Sudah Tidak Memiliki Peringatan.", parse_mode=ParseMode.HTML
             )
 
     return ""
@@ -232,13 +232,13 @@ def reset_warns(update: Update, context: CallbackContext) -> str:
 
     if user_id:
         sql.reset_warns(user_id, chat.id)
-        message.reply_text("Warns have been reset!")
+        message.reply_text("Peringatan Berhasi direset!")
         warned = chat.get_member(user_id).user
         return (
             f"<b>{html.escape(chat.title)}:</b>\n"
             f"#RESETWARNS\n"
-            f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-            f"<b>User:</b> {mention_html(warned.id, warned.first_name)}"
+            f"<b>Admin :</b> {mention_html(user.id, user.first_name)}\n"
+            f"<b>Pengguna :</b> {mention_html(warned.id, warned.first_name)}"
         )
     else:
         message.reply_text("No user has been designated!")
@@ -259,7 +259,7 @@ def warns(update: Update, context: CallbackContext):
 
         if reasons:
             text = (
-                f"This user has {num_warns}/{limit} warns, for the following reasons:"
+                f"Pengguna ini memiliki {num_warns}/{limit} peringatan, karena alasan berikut:"
             )
             for reason in reasons:
                 text += f"\n • {reason}"
@@ -269,10 +269,10 @@ def warns(update: Update, context: CallbackContext):
                 update.effective_message.reply_text(msg)
         else:
             update.effective_message.reply_text(
-                f"User has {num_warns}/{limit} warns, but no reasons for any of them."
+                f"Pengguna ini memiliki {num_warns}/{limit} peringatan, tapi tidak ada alasan untuk salah satu dari mereka."
             )
     else:
-        update.effective_message.reply_text("This user doesn't have any warns!")
+        update.effective_message.reply_text("Pengguna ini tidak memiliki peringatan apa pun!")
 
 
 # Dispatcher handler stop - do not async
@@ -343,7 +343,7 @@ def remove_warn_filter(update: Update, context: CallbackContext):
             raise DispatcherHandlerStop
 
     msg.reply_text(
-        "That's not a current warning filter - run /warnlist for all active warning filters."
+        "Itu bukan filter peringatan saat ini - ketik /warnlist untuk melihat semua filter peringatan aktif."
     )
 
 
@@ -410,22 +410,22 @@ def set_warn_limit(update: Update, context: CallbackContext) -> str:
     if args:
         if args[0].isdigit():
             if int(args[0]) < 3:
-                msg.reply_text("The minimum warn limit is 3!")
+                msg.reply_text("Batas peringatan minimum adalah 3!")
             else:
                 sql.set_warn_limit(chat.id, int(args[0]))
-                msg.reply_text("Updated the warn limit to {}".format(args[0]))
+                msg.reply_text("Memperbarui batas peringatan ke {}".format(args[0]))
                 return (
                     f"<b>{html.escape(chat.title)}:</b>\n"
                     f"#SET_WARN_LIMIT\n"
                     f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                    f"Set the warn limit to <code>{args[0]}</code>"
+                    f"Setel batas peringatan ke <code>{args[0]}</code>"
                 )
         else:
-            msg.reply_text("Give me a number as an arg!")
+            msg.reply_text("Beri saya nomor !")
     else:
         limit, soft_warn = sql.get_warn_setting(chat.id)
 
-        msg.reply_text("The current warn limit is {}".format(limit))
+        msg.reply_text("Batas peringatan saat ini adalah {}".format(limit))
     return ""
 
 
@@ -445,18 +445,18 @@ def set_warn_strength(update: Update, context: CallbackContext):
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"Has enabled strong warns. Users will be seriously punched.(banned)"
+                f"Telah mengaktifkan peringatan kuat. Pengguna akan dibuang dengan serius.(banned)"
             )
 
         elif args[0].lower() in ("off", "no"):
             sql.set_warn_strength(chat.id, True)
             msg.reply_text(
-                "Too many warns will now result in a normal punch! Users will be able to join again after."
+                "Terlalu banyak peringatan sekarang akan menghasilkan hukuman normal! Pengguna akan dapat bergabung lagi setelah."
             )
             return (
                 f"<b>{html.escape(chat.title)}:</b>\n"
                 f"<b>Admin:</b> {mention_html(user.id, user.first_name)}\n"
-                f"Has disabled strong punches. I will use normal punch on users."
+                f"Telah menonaktifkan hukuman kuat. Saya akan menggunakan hukuman normal pada pengguna."
             )
 
         else:
