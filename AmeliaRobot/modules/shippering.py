@@ -28,7 +28,7 @@ tomorrow = str(dt_tom())
 @capture_err
 async def couple(_, message):
     if message.chat.type == "private":
-        await message.reply_text("This command only works in groups.")
+        await message.reply_text("Hanya Bisa Dilakukan Didalam Grup.")
         return
     try:
         chat_id = message.chat.id
@@ -39,7 +39,7 @@ async def couple(_, message):
                 if not i.user.is_bot:
                     list_of_users.append(i.user.id)
             if len(list_of_users) < 2:
-                await message.reply_text("Not enough users")
+                await message.reply_text("Member Terlalu Sedikit")
                 return
             c1_id = random.choice(list_of_users)
             c2_id = random.choice(list_of_users)
@@ -48,9 +48,9 @@ async def couple(_, message):
             c1_mention = (await app.get_users(c1_id)).mention
             c2_mention = (await app.get_users(c2_id)).mention
 
-            couple_selection_message = f"""**Couple of the day:**
+            couple_selection_message = f"""**Pasangan Hari Ini:**
 {c1_mention} + {c2_mention} = ❤️
-__New couple of the day may be chosen at 12AM {tomorrow}__"""
+__Pasangan baru dapat dipilih lagi besok jam 12AM {tomorrow}__"""
             await app.send_message(
                 message.chat.id,
                 text=couple_selection_message
@@ -66,9 +66,9 @@ __New couple of the day may be chosen at 12AM {tomorrow}__"""
             c2_id = int(is_selected['c2_id'])
             c1_name = (await app.get_users(c1_id)).first_name
             c2_name = (await app.get_users(c2_id)).first_name
-            couple_selection_message = f"""Couple of the day:
+            couple_selection_message = f"""Pasangan Hari Ini:
 [{c1_name}](tg://openmessage?user_id={c1_id}) + [{c2_name}](tg://openmessage?user_id={c2_id}) = ❤️
-__New couple of the day may be chosen at 12AM {tomorrow}__"""
+__Pasangan baru dapat dipilih lagi besok jam 12AM {tomorrow}__"""
             await app.send_message(
                 message.chat.id,
                 text=couple_selection_message
