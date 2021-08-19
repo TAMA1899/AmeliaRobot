@@ -49,40 +49,40 @@ def ban(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("I doubt that's a user.")
+        message.reply_text("Pengguna Tidak Ditemukan.")
         return log_message
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message != "User not found":
+        if excp.message != "Pengguna Tidak Ditemukan":
             raise
-        message.reply_text("Can't seem to find this person.")
+        message.reply_text("Saya tidak dapat menemukan orang ini.")
         return log_message
     if user_id == bot.id:
-        message.reply_text("Oh yeah, ban myself, noob!")
+        message.reply_text("Tolol, ban myself, noob!")
         return log_message
 
     if is_user_ban_protected(chat, user_id, member) and user not in DEV_USERS:
         if user_id == OWNER_ID:
-            message.reply_text("Trying to put me against a God level disaster huh?")
+            message.reply_text("Mana Bida Tolol! Dia Lord Gue.")
         elif user_id in DEV_USERS:
-            message.reply_text("I can't act against our own.")
+            message.reply_text("Mana Bida Tolol! Dia Lord Gue.")
         elif user_id in DRAGONS:
             message.reply_text(
-                "Fighting this Dragon here will put civilian lives at risk."
+                "Mana Bida Tolol! Dia Lord Gue."
             )
         elif user_id in DEMONS:
             message.reply_text(
-                "Bring an order from Heroes association to fight a Demon disaster."
+                "Mana Bida Tolol! Dia Lord Gue."
             )
         elif user_id in TIGERS:
             message.reply_text(
-                "Bring an order from Heroes association to fight a Tiger disaster."
+                "Mana Bida Tolol! Dia Lord Gue."
             )
         elif user_id in WOLVES:
-            message.reply_text("Wolf abilities make them ban immune!")
+            message.reply_text("Mana Bida Tolol! Dia Lord Gue!")
         else:
-            message.reply_text("This user has immunity and cannot be banned.")
+            message.reply_text("Mana Bida Tolol! Dia Lord Gue.")
         return log_message
     if message.text.startswith("/s"):
         silent = True
@@ -134,7 +134,7 @@ def ban(update: Update, context: CallbackContext) -> str:
                 chat.id,
                 excp.message,
             )
-            message.reply_text("Uhm...that didn't work...")
+            message.reply_text("Uhm...itu tidak berhasil...")
 
     return log_message
 
@@ -155,13 +155,13 @@ def temp_ban(update: Update, context: CallbackContext) -> str:
     user_id, reason = extract_user_and_text(message, args)
 
     if not user_id:
-        message.reply_text("I doubt that's a user.")
+        message.reply_text("itu tidak berhasil.")
         return log_message
 
     try:
         member = chat.get_member(user_id)
     except BadRequest as excp:
-        if excp.message != "User not found":
+        if excp.message != "Pengguna Tidak Ditemukan.":
             raise
         message.reply_text("I can't seem to find this user.")
         return log_message
