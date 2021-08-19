@@ -190,75 +190,75 @@ def new_member(update: Update, context: CallbackContext):
             # Give the owner a special welcome
             if new_mem.id == OWNER_ID:
                 update.effective_message.reply_text(
-                    "Oh, Genos? Let's get this moving.", reply_to_message_id=reply
+                    "Owner Datang! Kabooor.", reply_to_message_id=reply
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"Bot Owner just joined the group"
+                    f"Owner Datang! Kabooor."
                 )
                 continue
 
             # Welcome Devs
             elif new_mem.id in DEV_USERS:
                 update.effective_message.reply_text(
-                    "Be cool! A member of the Heroes Association just joined.",
+                    "Owner Datang! Kabooor.",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"Bot Dev just joined the group"
+                    f"Owner Datang! Kabooor."
                 )
                 continue
 
             # Welcome Sudos
             elif new_mem.id in DRAGONS:
                 update.effective_message.reply_text(
-                    "Whoa! A Dragon disaster just joined! Stay Alert!",
+                    "Owner Datang! Kabooor.",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"Bot Sudo just joined the group"
+                    f"Owner Datang! Kabooor."
                 )
                 continue
 
             # Welcome Support
             elif new_mem.id in DEMONS:
                 update.effective_message.reply_text(
-                    "Huh! Someone with a Demon disaster level just joined!",
+                    "Owner Datang! Kabooor.",
                     reply_to_message_id=reply,
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"Bot Support just joined the group"
+                    f"Owner Datang! Kabooor."
                 )
                 continue
 
             # Welcome Whitelisted
             elif new_mem.id in TIGERS:
                 update.effective_message.reply_text(
-                    "Roar! A Tiger disaster just joined!", reply_to_message_id=reply
+                    "Owner Datang! Kabooor.", reply_to_message_id=reply
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"A whitelisted user joined the chat"
+                    f"Owner Datang! Kabooor."
                 )
                 continue
 
             # Welcome Tigers
             elif new_mem.id in WOLVES:
                 update.effective_message.reply_text(
-                    "Awoo! A Wolf disaster just joined!", reply_to_message_id=reply
+                    "Owner Datang! Kabooor.", reply_to_message_id=reply
                 )
                 welcome_log = (
                     f"{html.escape(chat.title)}\n"
                     f"#USER_JOINED\n"
-                    f"A whitelisted user joined the chat"
+                    f"Owner Datang! Kabooor."
                 )
                 continue
 
@@ -267,7 +267,7 @@ def new_member(update: Update, context: CallbackContext):
                 creator = None
                 if not AsunaRobot.ALLOW_CHATS:
                     with suppress(BadRequest):
-                         update.effective_message.reply_text(f"Groups are disabled for {bot.first_name}, I'm outta here.")
+                         update.effective_message.reply_text(f"Grup dinonaktifkan untuk {bot.first_name}, aku keluar dari sini.")
                     bot.leave_chat(update.effective_chat.id)
                     return
                 for x in bot.bot.get_chat_administrators(update.effective_chat.id):
@@ -277,7 +277,7 @@ def new_member(update: Update, context: CallbackContext):
                 if creator:
                     bot.send_message(
                         JOIN_LOGGER,
-                        "#NEW_GROUP\n<b>Group name:</b> {}\n<b>ID:</b> <code>{}</code>\n<b>Creator:</b> <code>{}</code>".format(
+                        "#NEW_GROUP\n<b>Group name :</b> {}\n<b>ID :</b> <code>{}</code>\n<b>Creator :</b> <code>{}</code>".format(
                             html.escape(chat.title), chat.id, html.escape(creator)
                         ),
                         parse_mode=ParseMode.HTML,
@@ -285,13 +285,13 @@ def new_member(update: Update, context: CallbackContext):
                 else:
                     bot.send_message(
                         JOIN_LOGGER,
-                        "#NEW_GROUP\n<b>Group name:</b> {}\n<b>ID:</b> <code>{}</code>".format(
+                        "#NEW_GROUP\n<b>Group name :</b> {}\n<b>ID :</b> <code>{}</code>".format(
                             html.escape(chat.title), chat.id
                         ),
                         parse_mode=ParseMode.HTML,
                     )
                 update.effective_message.reply_text(
-                    "Watashi ga kita!", reply_to_message_id=reply
+                    "saya datang!", reply_to_message_id=reply
                 )
                 continue
 
@@ -416,12 +416,12 @@ def new_member(update: Update, context: CallbackContext):
                         )
                     new_join_mem = f'<a href="tg://user?id={user.id}">{html.escape(new_mem.first_name)}</a>'
                     message = msg.reply_text(
-                        f"{new_join_mem}, click the button below to prove you're human.\nYou have 120 seconds.",
+                        f"{new_join_mem}, klik tombol di bawah untuk membuktikan bahwa Anda manusia.\nAnda punya waktu 120 detik.",
                         reply_markup=InlineKeyboardMarkup(
                             [
                                 {
                                     InlineKeyboardButton(
-                                        text="Yes, I'm human.",
+                                        text="Ya, saya manusia.",
                                         callback_data=f"user_join_({new_mem.id})",
                                     )
                                 }
@@ -478,8 +478,8 @@ def new_member(update: Update, context: CallbackContext):
         return (
             f"{html.escape(chat.title)}\n"
             f"#USER_JOINED\n"
-            f"<b>User</b>: {mention_html(user.id, user.first_name)}\n"
-            f"<b>ID</b>: <code>{user.id}</code>"
+            f"<b>User</b> : {mention_html(user.id, user.first_name)}\n"
+            f"<b>ID</b> : <code>{user.id}</code>"
         )
 
     return ""
@@ -497,7 +497,7 @@ def check_not_bot(member, chat_id, message_id, context):
 
         try:
             bot.edit_message_text(
-                "*kicks user*\nThey can always rejoin and try.",
+                "*menendang pengguna*\nMereka selalu dapat bergabung kembali dan mencoba.",
                 chat_id=chat_id,
                 message_id=message_id,
             )
@@ -546,14 +546,14 @@ def left_member(update: Update, context: CallbackContext):
             # Give the owner a special goodbye
             if left_mem.id == OWNER_ID:
                 update.effective_message.reply_text(
-                    "Oi! Genos! He left..", reply_to_message_id=reply
+                    "Yahhh Lord Keluar...", reply_to_message_id=reply
                 )
                 return
 
             # Give the devs a special goodbye
             elif left_mem.id in DEV_USERS:
                 update.effective_message.reply_text(
-                    "See you later at the Hero's Association!",
+                    "Yahhh Lord Keluar!",
                     reply_to_message_id=reply,
                 )
                 return
